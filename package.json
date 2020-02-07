@@ -13,9 +13,13 @@
     "consola": "^2.11.3",
     "csv-parse": "^4.8.5",
     "get-pixels": "^3.3.2",
+    "image-pixels": "^2.2.2",
+    "jpeg-js": "^0.3.6",
     "mkdirp": "^1.0.3",
+    "ndarray": "^1.0.19",
     "path": "^0.12.7",
     "plotly": "^1.0.6",
+    "readimage": "^1.1.1",
     "sharp": "^0.24.0"
   }
 }

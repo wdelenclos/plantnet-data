@@ -19,18 +19,19 @@ async function run(){
     // Nettoyage du Dataset
     console.clear();
     consola.info('---------- Cleaning dataset ------------')
-    await cleaner.run(imageGeneration);
+    cleaner.run(imageGeneration);
     consola.success('------------ OK --------------');
     
 
     // Extraction des entités
     consola.info('---------- Extract entries ------------')
-    extract = await feature.getImages();
+    extract = feature.getImages();
 
     consola.success('------------ OK --------------');
-    console.log(extract.labels, extract.images)
+    
 
     // Entrainement du réseau
+    /*
     consola.info('---------- Train dataset ------------')
     model.summary();
     model.fit(extract.images, extract.labels, {
@@ -38,7 +39,7 @@ async function run(){
         batchSize,
         validationSplit
     });
-
+*/
     consola.success('------------ OK --------------');
 }
 

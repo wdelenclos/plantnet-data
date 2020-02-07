@@ -1,6 +1,8 @@
 const cleaner = require('./cleaner');
 const utils = require('./utils');
 const fs = require('fs');
+var jpeg          = require('jpeg-js')
+var ndarray       = require('ndarray')
 const path = require('path');
 const getPixels = require('get-pixels');
 const tf = require('@tensorflow/tfjs-node')
@@ -18,53 +20,52 @@ class Feature {
             let j = 0
             classes.forEach(element => {
                 // Generate images resized
-              fs.readdir('./clean-dataset/' +element.replace(/\s/g,'_').toLowerCase(), function (err, files) {
-                  //handling error
-                  if (err) {
-                  consola.error('Unable to scan directory')
-                      return console.log('Unable to scan directory: ' + err);
-                  } 
-                  // listing all files using forEach
-                
-                  files.forEach((file)  => {
-                
-                      if(path.extname(file) == '.jpg'){
-                          let img = []
-                          let pattt = __dirname +'/clean-dataset/'+ element.replace(/\s/g,'_').toLowerCase() + '/'+ file;
-                          if(fs.existsSync(pattt)){
-                              j++;
-                            getPixels(pattt, (err, pixels)  => {
-                              if(err) {
-                                
-                              }
-                              for (let y = 0; y < pixels.shape[1]; y++) {
-                                   let xarr = []
-                                for (let x = 0; x < pixels.shape[0]; x++) {
-                                
-                                  const r = pixels.get(x, y, 0);
-                                  const g = pixels.get(x, y, 1);
-                                  const b = pixels.get(x, y, 2);
-                                  const rgba = (r + g + b)/ (3*255);
-                                  xarr.push(rgba)
+                console.log(element);
+                fs.readdirSync(__dirname+'/clean-dataset/' +element.replace(/\s/g,'_').toLowerCase()+'/').forEach(file => {
+                    
+                        if(path.extname(file) == '.jpg'){
+                            let img = []
+                            let pattt = __dirname +'/clean-dataset/'+ element.replace(/\s/g,'_').toLowerCase() + '/'+ file;
+                            
+                            var data = fs.readFileSync(pattt)
+                              
+                            var jpegData
+                                try {
+                                    jpegData = jpeg.decode(data)
                                 }
-                                img.push(xarr);
-                              } 
-                              imagesInDirectoryImage.push(img);
-                              imagesInDirectoryLabel.push(element.indexOf())
-
-                      });
-                      };
-                      };
+                                catch(e) {
+                                    console.log(e)
+                                    return
+                                }
+                                if(!jpegData) {
+                                    console.log(new Error("Error decoding jpeg"))
+                                    return
+                                }
+                                var nshape = [ jpegData.height, jpegData.width, 4 ]
+                                var result = ndarray(jpegData.data, nshape)
+                                console.log(result.transpose(1,0).data.toString())
+                                imagesInDirectoryImage.push(result.transpose(1,0));
+                                imagesInDirectoryLabel.push(element.indexOf())
+                        };
+                 
                   });
-              });
+        
+              require('fs').writeFile(
+
+                './my.json',
+            
+                JSON.stringify(imagesInDirectoryImage),
+            
+                function (err) {
+                    if (err) {
+                        console.error('Crap happens');
+                    }
+                }
+            );
           });
-          console.log(imagesInDirectoryImage);
+          
 
         });
-        
-      return { images: tf.tensor4d(imagesInDirectoryImage, [imagesInDirectoryImage.length, 150, 150, 1]),
-        labels: tf.oneHot(tf.tensor1d(imagesInDirectoryLabel, 'int32'), imagesInDirectoryLabel.length).toFloat()
-        };
     
     }
 }
