@@ -31,7 +31,7 @@ async function run(){
     
 
     // Entrainement du réseau
-    /*
+    
     consola.info('---------- Train dataset ------------')
     model.summary();
     model.fit(extract.images, extract.labels, {
@@ -39,7 +39,6 @@ async function run(){
         batchSize,
         validationSplit
     });
-*/
     consola.success('------------ OK --------------');
 }
 
