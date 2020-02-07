@@ -47,21 +47,14 @@ class Feature {
                                 imagesInDirectoryImage.push(result.transpose(1,0));
                                 imagesInDirectoryLabel.push(element.indexOf())
                         };
+                        return {
+                            images: tf.tensor4d(imagesInDirectoryImage, imagesShape),
+                            labels: tf.oneHot(tf.tensor1d(imagesInDirectoryLabel, 'int32'), 50).toFloat()
+                          };
                  
                   });
         
-              require('fs').writeFile(
 
-                './my.json',
-            
-                JSON.stringify(imagesInDirectoryImage),
-            
-                function (err) {
-                    if (err) {
-                        console.error('Crap happens');
-                    }
-                }
-            );
           });
           
 
