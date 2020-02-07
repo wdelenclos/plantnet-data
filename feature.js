@@ -33,7 +33,6 @@ class Feature {
                           let pattt = __dirname +'/clean-dataset/'+ element.replace(/\s/g,'_').toLowerCase() + '/'+ file;
                           if(fs.existsSync(pattt)){
                               j++;
-                            tf.tensor4d(imagesInDirectoryImage)
                             getPixels(pattt, (err, pixels)  => {
                               if(err) {
                                 

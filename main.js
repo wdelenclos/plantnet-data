@@ -22,7 +22,7 @@ async function run(){
     await cleaner.run(imageGeneration);
     consola.success('------------ OK --------------');
     
-    
+
     // Extraction des entités
     consola.info('---------- Extract entries ------------')
     extract = await feature.getImages();
@@ -39,7 +39,7 @@ async function run(){
         validationSplit
     });
 
-      consola.success('------------ OK --------------');
+    consola.success('------------ OK --------------');
 }
 
 
