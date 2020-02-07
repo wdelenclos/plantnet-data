@@ -10,7 +10,7 @@ const cleaner = require('./cleaner')
 const feature = require('./feature')
 const model = require('./trainer')
 
-const imageGeneration = false;
+const imageGeneration = true;
 const epochs = 15;
 const batchSize = 32;
 const validationSplit = 0.15;

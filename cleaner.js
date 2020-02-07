@@ -4,7 +4,7 @@ const sharp = require('sharp');
 const utils = require('./utils');
 
 class Cleaner {
-    run(imageGeneration, ){
+    run(imageGeneration ){
         const data = utils.parser('/dataset/Data/ImageCLEFF2013PlantTaskMasterFileFinal.csv');
         data.then((el) => {
             consola.success(el.length + ' entires found in csv')
