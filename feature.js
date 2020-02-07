@@ -42,8 +42,8 @@ class Feature {
                                     return
                                 }
                                 var nshape = [ jpegData.height, jpegData.width, 4 ]
-                                var result = ndarray(jpegData.data, nshape)
-                                console.log(result.transpose(1,0).data.toString())
+                                var result = ndarray(Uint8Array.from(jpegData.data), nshape)
+                                
                                 imagesInDirectoryImage.push(result.transpose(1,0));
                                 imagesInDirectoryLabel.push(element.indexOf())
                         };
