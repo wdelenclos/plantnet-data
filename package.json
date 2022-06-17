@@ -14,7 +14,7 @@
     "csv-parse": "^4.8.5",
     "get-pixels": "^3.3.2",
     "image-pixels": "^2.2.2",
-    "jpeg-js": "^0.3.6",
+    "jpeg-js": "^0.4.4",
     "mkdirp": "^1.0.3",
     "ndarray": "^1.0.19",
     "path": "^0.12.7",
